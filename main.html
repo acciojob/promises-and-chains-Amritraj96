@@ -1,13 +1,50 @@
+```html
 <!DOCTYPE html>
-
 <html>
   <head>
     <link rel="stylesheet" href="styles.css" />
   </head>
-
   <body>
-    <!-- write the body here -->
+    <!-- Form -->
+    <form id="voteForm">
+      <input type="number" id="age" placeholder="Enter your age" />
+      <input type="text" id="name" placeholder="Enter your name" />
+      <button type="submit" id="btn">Submit</button>
+    </form>
 
-    <script type="text/javascript" src="./script.js"></script>
+    <script type="text/javascript">
+      const form = document.getElementById("voteForm");
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent default form submission
+
+        const age = document.getElementById("age").value;
+        const name = document.getElementById("name").value;
+
+        // Validation
+        if (age === "" || name.trim() === "") {
+          alert("Please enter valid details.");
+          return;
+        }
+
+        // Create promise
+        const checkAge = new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if (parseInt(age) > 18) {
+              resolve(`Welcome, ${name}. You can vote.`);
+            } else {
+              reject(`Oh sorry ${name}. You aren't old enough.`);
+            }
+          }, 4000);
+        });
+
+        // Handle promise
+        checkAge
+          .then((message) => alert(message))
+          .catch((error) => alert(error));
+      });
+    </script>
   </body>
 </html>
+```
+
